@@ -91,23 +91,49 @@ export const users: User[] = [
   }
 ];
 
-export type Employee = {
+export type Campaign = {
   id: number;
-  first_name: string;
+  RoAS: string;
   last_name: string;
   email: string;
   phone: string;
   gender: string;
-  date_of_birth: string; // Consider using a proper date type if possible
   street: string;
   city: string;
   state: string;
   country: string;
   zipcode: string;
-  longitude?: number; // Optional field
-  latitude?: number; // Optional field
   job: string;
-  profile_picture?: string | null; // Profile picture can be a string (URL) or null (if no picture)
+};
+
+export type AdSets = {
+  id: number;
+  RoAS: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  gender: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipcode: string;
+  job: string;
+};
+
+export type Ads = {
+  id: number;
+  RoAS: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  gender: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipcode: string;
+  job: string;
 };
 
 export const navItems: NavItem[] = [

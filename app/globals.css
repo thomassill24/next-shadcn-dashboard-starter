@@ -34,7 +34,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
+    --border: 220 7% 92%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
 
@@ -97,3 +97,4 @@
     height: 100dvh;
   }
 }
+

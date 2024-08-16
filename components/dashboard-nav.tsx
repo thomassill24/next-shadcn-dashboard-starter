@@ -33,8 +33,6 @@ export function DashboardNav({
     return null;
   }
 
-  console.log('isActive', isMobileNav, isMinimized);
-
   return (
     <nav className="grid items-start gap-2">
       <TooltipProvider>
@@ -47,8 +45,10 @@ export function DashboardNav({
                   <Link
                     href={item.disabled ? '/' : item.href}
                     className={cn(
-                      'flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
-                      path === item.href ? 'bg-accent' : 'transparent',
+                      'flex items-center gap-2 overflow-hidden rounded-xl py-2 text-sm font-medium',
+                      path === item.href 
+                        ? 'bg-[#F4F4F5] text-accent-foreground font-bold hover:bg-[#F2F2F2] hover:text-accent-foreground hover:font-bold' 
+                        : 'hover:bg-[#F9F9F9] hover:text-accent-foreground',
                       item.disabled && 'cursor-not-allowed opacity-80'
                     )}
                     onClick={() => {

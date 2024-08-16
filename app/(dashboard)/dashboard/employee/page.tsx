@@ -1,6 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { columns } from '@/components/tables/employee-tables/columns';
-import { EmployeeTable } from '@/components/tables/employee-tables/employee-table';
+import { columns } from '@/components/tables/campaigns-table/columns';
+import { EmployeeTable } from '@/components/tables/campaigns-table/employee-table';
 import { buttonVariants } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
