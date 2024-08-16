@@ -221,6 +221,7 @@ export function AdSetsTable<TData, TValue>({
                             <TableCell>{`${ad.roas.toFixed(2)}x`}</TableCell>
                             <TableCell>{ad.clicks}</TableCell>
                             <TableCell>{ad.orders}</TableCell>
+                            <TableCell className="w-[40px]"></TableCell>
                           </TableRow>
                         ))}
                     </React.Fragment>

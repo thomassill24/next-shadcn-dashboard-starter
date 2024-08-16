@@ -248,6 +248,7 @@ export function CampaignsTable<TData, TValue>({
                                 <TableCell>{`${adSet.roas.toFixed(2)}x`}</TableCell>
                                 <TableCell>{adSet.clicks}</TableCell>
                                 <TableCell>{adSet.orders}</TableCell>
+                                <TableCell className="w-[40px]"></TableCell>
                               </TableRow>
 
                               {isExpandedAdSet &&
@@ -259,6 +260,7 @@ export function CampaignsTable<TData, TValue>({
                                     <TableCell>{`${ad.roas.toFixed(2)}x`}</TableCell>
                                     <TableCell>{ad.clicks}</TableCell>
                                     <TableCell>{ad.orders}</TableCell>
+                                    <TableCell className="w-[40px]"></TableCell>
                                   </TableRow>
                                 ))}
                             </React.Fragment>
