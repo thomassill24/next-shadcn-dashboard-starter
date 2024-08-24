@@ -9,7 +9,9 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 
 export default function page() {
@@ -27,7 +29,12 @@ export default function page() {
         <TabsTrigger value="organization">Organization</TabsTrigger>
       </TabsList>
         <TabsContent value="linkedAccounts">Link all your accounts here.</TabsContent>
-        <TabsContent value="cname">Connect your domains here.</TabsContent>
+        <TabsContent value="cname">
+          
+          Connect your domains.
+          <Button>Hello</Button>
+          <Dialog></Dialog>
+          </TabsContent>
         <TabsContent value="yourAccount">Manage your account.</TabsContent>
         <TabsContent value="organization">Manage your organization.</TabsContent>
 
