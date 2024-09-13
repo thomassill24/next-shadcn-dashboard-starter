@@ -1,39 +1,64 @@
+'use client';
+import React, { useState } from 'react';
 import ThemeToggle from '@/components/layout/ThemeToggle/theme-toggle';
-import { cn } from '@/lib/utils';
-import { MobileSidebar } from './mobile-sidebar';
 import { UserNav } from './user-nav';
 import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useSidebar } from '@/hooks/useSidebar';
 
-export default function Header() {
+type SidebarProps = {
+  className?: string;
+};
+
+export default function Sidebar({ className }: SidebarProps) {
+  const { isMinimized, toggle } = useSidebar();
+  const [status, setStatus] = useState(false);
+
+  const handleToggle = () => {
+    setStatus(true);
+    toggle();
+    setTimeout(() => setStatus(false), 500);
+  };
+
+
   return (
-    <div className="supports-backdrop-blur:bg-background/60 fixed left-0 right-0 top-0 z-20 border-b bg-background/95 backdrop-blur">
-      <nav className="flex h-14 items-center justify-between px-4">
-        <div className="hidden lg:block">
-          <Link
-            href={'https://github.com/Kiranism/next-shadcn-dashboard-starter'}
-            target="_blank"
+    <div className="sticky top-0 right-0 left-0 z-20">
+      <nav className="screen:flex flex-col justify-between h-[54px] border-b items-center bg-white">
+
+      <div className='w-full h-full flex flex-row justify-center items-between py-2.5'>
+
+          <button
+          onClick={toggle}
+          className={cn(
+            'px-1.5 bg-[#f9fafb] hover:bg-[#f1f2f4] border-[#f4f4f4] border-y border-r rounded-r-lg'
+          )}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="[#121212]"
+            viewBox="0 0 20 20"
+            strokeWidth="0"
+            stroke="currentColor"
+            className={cn('h-4 w-4 text-[#121212]', isMinimized ? 'rotate-180' : '')}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
+            <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="mr-2 h-6 w-6"
-            >
-              <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
-            </svg>
-          </Link>
-        </div>
-        <div className={cn('block lg:!hidden')}>
-          <MobileSidebar />
-        </div>
-
-        <div className="flex items-center gap-2">
+              d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+            />
+          </svg>
+        </button>
+          
+        {/* Right Side - Links and Icons */}
+        <div className='w-full py-2 pr-6 flex flex-row space-x-4 justify-end items-center bg-white'>
+              
+          {/* User Nav/Profile */}
           <UserNav />
+
+          {/* Theme Toggle */}
           <ThemeToggle />
+        </div>
         </div>
       </nav>
     </div>

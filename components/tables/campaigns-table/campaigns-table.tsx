@@ -37,6 +37,9 @@ interface Campaign {
   clicks: number;
   orders: number;
   adSets?: AdSet[];
+  pinned?: boolean;
+  status:string;
+  requests: number;
 }
 
 interface DataTableProps<TData, TValue> {
@@ -118,9 +121,9 @@ export function CampaignsTable<TData, TValue>({
 
   return (
     <>
-      <ScrollArea className="h-[calc(96vh-220px)] w-full rounded-xl border">
-        <Table className="h-full w-full relative">
-          <TableHeader className="sticky top-0 bg-white">
+      <ScrollArea className="h-full w-full rounded-xl border">
+        <Table className="w-full">
+          <TableHeader className="sticky top-0 bg-white z-10">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent">
                 {headerGroup.headers.map((header) => (
@@ -281,8 +284,8 @@ export function CampaignsTable<TData, TValue>({
                 </TableRow>
               </>
             ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableRow className='h-dvh'>
+                <TableCell colSpan={columns.length} className="text-center h-full">
                   No results.
                 </TableCell>
               </TableRow>

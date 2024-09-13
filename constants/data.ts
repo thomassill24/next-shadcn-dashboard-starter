@@ -159,6 +159,20 @@ export const navItems: NavItem[] = [
   },
 
   {
+    title: 'Test',
+    href: '/dashboard/newTest',
+    icon: 'settings',
+    label: 'settings'
+  },
+
+  {
+    title: 'Home',
+    href: '/dashboard/Home',
+    icon: 'dashboard',
+    label: 'dashboard'
+  },
+
+  {
     title: 'Log out',
     href: '/',
     icon: 'login',

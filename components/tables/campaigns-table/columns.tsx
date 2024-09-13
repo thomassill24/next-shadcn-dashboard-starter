@@ -16,14 +16,14 @@ export const columns: ColumnDef<Campaign>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Campaigns
+          Links
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'spend',
+    accessorKey: 'requests',
     header: ({ column }) => {
       return (
         <Button
@@ -31,14 +31,14 @@ export const columns: ColumnDef<Campaign>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Spend
+          Visits
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'metaRoas',
+    accessorKey: 'status',
     header: ({ column }) => {
       return (
         <Button
@@ -46,57 +46,14 @@ export const columns: ColumnDef<Campaign>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Meta ROAS
+          Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
-  {
-    accessorKey: 'roas',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='hover:bg-transparent'
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Pixamp ROAS
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: 'clicks',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='hover:bg-transparent'
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Clicks
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: 'orders',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='hover:bg-transparent'
-          variant ="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Orders
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
+
+
   {
     id: 'actions',
     header: () => null, // No header for the actions column
