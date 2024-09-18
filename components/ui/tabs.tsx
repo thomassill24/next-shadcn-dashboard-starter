@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
-
 import { cn } from '@/lib/utils';
 
 const Tabs = TabsPrimitive.Root;
@@ -14,7 +13,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground',
+      'inline-flex items-center justify-start border-b border-gray-200',
       className
     )}
     {...props}
@@ -29,7 +28,9 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow',
+      'inline-flex items-start justify-start whitespace-nowrap px-3 py-2 text-sm font-medium text-[#7E828A] transition-all border-b-2 border-transparent rounded-t-lg',
+      'hover:bg-[#F9FAFB] focus-visible:outline-none focus-visible:ring-0',
+      'data-[state=active]:border-b-2 data-[state=active]:border-[#9747FF] data-[state=active]:font-semibold data-[state=active]:text-[#121212] data-[state=active]:rounded-t-lg data-[state=active]:hover:bg-transparent',
       className
     )}
     {...props}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CampaignsTable } from '@/components/tables/campaigns-table/campaigns-table';
@@ -8,28 +8,56 @@ import { columns } from '@/components/tables/campaigns-table/columns';
 import { DataTable } from "@/components/ui/data-table";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Popover } from "@/components/ui/popover";
+import { Command } from "@/components/ui/command";
+import { ComboboxDemo } from "@/components/ui/combobox";
+import { PlusIcon } from "@radix-ui/react-icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AdSetsTable } from '@/components/tables/adsets-table/adsets-table';
+import { columnsAdSets } from '@/components/tables/adsets-table/columns';
+import { AdsTable } from '@/components/tables/ads-table/ads-table';
+import { columnsAds } from '@/components/tables/ads-table/columns';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import AdLinksTable from '@/components/ui/ad-links';
 
 
-const Dashboard = () => {
+
+export default function Home () {
   return (
-<ScrollArea className="h-full">
-      <div className="flex-1 space-y-6 md:p-8 bg-[#f9fafb]">
+    
+  <ScrollArea className="h-full">
+
+      <div className="flex-1 space-y-5 md:p-8 bg-[#f9fafb]">
               
-              <div className="space-y-1">
-                <h2 className="text-2xl font-bold tracking-medium">
-                  Hello Romain 
-                </h2>
-                <p className="text-md font-medium text-[#6B7280]">This is how your campaigns are going</p>
-                </div>
+                <div className="flex items-end justify-between">
+            {/* Left side: Title and Tagline */}
+            <div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-              <div className="col-span-2">
-                <DataTable 
-                  columns={columns} 
-                  data={[]} />
-              </div>
+              <h2 className="text-2xl font-bold tracking-medium">Hello Romain</h2>
+              <p className="text-md font-medium text-[#6B7280]">
+                Here's your campaigns are going
+              </p>
+            </div>
             
+            {/* Right side: Button */}
+            <div className="flex items-center space-x-3">
+            <ComboboxDemo />
+            <Button 
+              variant="purple" 
+              className="flex items-center space-x-2"
+            >
+              <PlusIcon className="h-4 w-4" /> {/* Add the plus icon */}
+              <span>New link</span>
+            </Button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+
+              <AdLinksTable />
+
+
             <div className="col-span-1 space-y-4">
             <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
@@ -48,7 +76,7 @@ const Dashboard = () => {
                     Total number of link visits
                     </div>
                     <div  className="space-y-1">
-                  <div className="text-2xl font-bold">14,056</div>
+                  <div className="text-2xl font-bold">148,056</div>
                   <p className="text-xs text-muted-foreground">
                     last 7 days
                   </p>
@@ -108,7 +136,7 @@ const Dashboard = () => {
                 <div className="flex items-center space-x-2">
                   <span className="text-xs text-[#7E828A]">Data sent 3h ago</span>
                   <div className="relative flex items-center justify-center">
-                    <div className="h-4 w-4 bg-green-100  rounded-full flex items-center justify-center">
+                    <div className="h-4 w-4 bg-[#e6fce8] rounded-full flex items-center justify-center">
                       <div className="h-1.5 w-1.5 bg-green-600 rounded-full"></div>
                     </div>
                   </div>
@@ -145,10 +173,10 @@ const Dashboard = () => {
               {/* Amazon Line */}
               <div className="flex items-center justify-between border-b border-[#e6e3e3] pb-4">
                 <span className="text-sm font-medium">Amazon Seller Central</span>
-                <div className="flex items-center space-x-2 bg-green-100 text-green-600 px-2 py-1 rounded-full">
+                <div className="flex items-center space-x-2 bg-[#e6fce8] text-green-700 px-2 py-1 rounded-full">
                   <span className="text-[12px] font-medium">Active</span>
                   <div className="relative flex items-center justify-center">
-                      <div className="h-2 w-2 bg-green-600 rounded-full"></div>
+                      <div className="h-2 w-2 bg-green-700 rounded-full"></div>
                     </div>
                   </div>
                 </div>
@@ -168,10 +196,10 @@ const Dashboard = () => {
               {/* CNAME Line */}
               <div className="flex items-center justify-between border-b border-[#e6e3e3] pb-4">
                 <span className="text-sm font-medium">CNAME registry</span>
-                <div className="flex items-center space-x-2 bg-green-100 text-green-600 px-2 py-1 rounded-full">
+                <div className="flex items-center space-x-2 bg-[#e6fce8] text-green-700 px-2 py-1 rounded-full">
                   <span className="text-[12px] font-medium">Active</span>
                   <div className="relative flex items-center justify-center">
-                      <div className="h-2 w-2 bg-green-600 rounded-full"></div>
+                      <div className="h-2 w-2 bg-green-700 rounded-full"></div>
                     </div>
                   </div>
                 </div>
@@ -202,11 +230,8 @@ const Dashboard = () => {
           </Card>
 
             </div>
-
           </div>
-        </div>
+          </div>
     </ScrollArea>
   );
 }
-
-export default Dashboard;

@@ -158,7 +158,7 @@ export function CampaignsTable<TData, TValue>({
 
                   return (
                     <React.Fragment key={campaign.id}>
-                      <TableRow className={index % 2 === 0 ? "bg-[#F9F9F9] hover:bg-[#F9F9F9]" : "bg-white hover:bg-[white]"}>
+                      <TableRow className={index % 2 === 0 ? "bg-white hover:bg-white" : "bg-white hover:bg-[white]"}>
                         <TableCell>
                           <div className="flex items-center">
                             {isPinned && (
@@ -184,7 +184,7 @@ export function CampaignsTable<TData, TValue>({
                               {/* Bullet */}
                               <span
                                 className={`h-2 w-2 rounded-full mx-2 ${
-                                  status === 'active' ? 'bg-green-500' : 'bg-gray-400'
+                                  status === 'active' ? 'bg-green-500' : 'bg-red-400'
                                 }`}
                               ></span>
 
@@ -232,7 +232,7 @@ export function CampaignsTable<TData, TValue>({
                           const isExpandedAdSet = expandedAdSetIds.includes(adSet.id);
                           return (
                             <React.Fragment key={adSet.id}>
-                              <TableRow className="bg-[#F4F4F5] hover:bg-[#F4F4F5]">
+                              <TableRow className="bg-white hover:bg-white">
                                 <TableCell className="pl-8">
                                   <button
                                     className="flex items-center text-blue-500"
@@ -256,7 +256,7 @@ export function CampaignsTable<TData, TValue>({
 
                               {isExpandedAdSet &&
                                 adSet.ads?.map((ad) => (
-                                  <TableRow key={ad.id} className="bg-[#E4E4E5] hover:bg-[#E4E4E5]">
+                                  <TableRow key={ad.id} className="bg-white hover:bg-white">
                                     <TableCell className="pl-12">{ad.name}</TableCell>
                                     <TableCell>{`$${ad.spend.toLocaleString()}`}</TableCell>
                                     <TableCell>{`${ad.metaRoas.toFixed(2)}x`}</TableCell>
@@ -273,15 +273,6 @@ export function CampaignsTable<TData, TValue>({
                   );
                 })}
 
-                <TableRow className="sticky bottom-0 bg-[#F4F4F5] font-bold hover:bg-[#F4F4F5]">
-                  <TableCell>Totals</TableCell>
-                  <TableCell>{`$${totalSpend.toLocaleString()}`}</TableCell>
-                  <TableCell>{`${meanMetaRoas.toFixed(2)}x`}</TableCell>
-                  <TableCell>{`${meanRoas.toFixed(2)}x`}</TableCell>
-                  <TableCell>{totalClicks}</TableCell>
-                  <TableCell>{totalOrders}</TableCell>
-                  <TableCell className="w-[40px]"></TableCell> {/* This "fake" column simulates the width of the actions column */}
-                </TableRow>
               </>
             ) : (
               <TableRow className='h-dvh'>
