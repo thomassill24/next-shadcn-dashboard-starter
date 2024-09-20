@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { cn } from '@/lib/utils';
 
 const Table = React.forwardRef<
@@ -83,7 +82,7 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      'pl-2 pr-6 py-2 ',
+      'pl-2 pr-6 py-2',
       className
     )}
     {...props}

@@ -56,8 +56,6 @@ export default function Sidebar({ className }: SidebarProps) {
           {/* User Nav/Profile */}
           <UserNav />
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
         </div>
         </div>
       </nav>

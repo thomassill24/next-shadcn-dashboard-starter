@@ -19,74 +19,65 @@ import { AdsTable } from '@/components/tables/ads-table/ads-table';
 import { columnsAds } from '@/components/tables/ads-table/columns';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AdLinksTable from '@/components/ui/ad-links';
+import { DateRange } from "react-day-picker";
+import { CalendarDateRangePicker } from "@/components/date-range-picker";
 
-
-
-export default function Home () {
+export default function Home() {
   return (
-    
-  <ScrollArea className="h-full">
-
-      <div className="flex-1 space-y-5 md:p-8 bg-[#f9fafb]">
-              
-                <div className="flex items-end justify-between">
-            {/* Left side: Title and Tagline */}
-            <div>
-
-              <h2 className="text-2xl font-bold tracking-medium">Hello Romain</h2>
-              <p className="text-md font-medium text-[#6B7280]">
-                Here's your campaigns are going
-              </p>
-            </div>
-            
-            {/* Right side: Button */}
-            <div className="flex items-center space-x-3">
+    <ScrollArea className="h-full bg-[#f9fafb]">
+      <div className="flex-1 space-y-5 md:p-8">
+        {/* Header with title and button */}
+        <div className="flex items-end justify-between">
+          {/* Left side: Title and Tagline */}
+          <div>
+            <h2 className="text-2xl font-bold tracking-medium">Hello Romain</h2>
+            <p className="text-md font-medium text-[#6B7280]">
+              Here's your campaigns are going
+            </p>
+          </div>
+          {/* Right side: Button */}
+          <div className="flex items-center space-x-2">
+            <CalendarDateRangePicker />
             <ComboboxDemo />
-            <Button 
-              variant="purple" 
-              className="flex items-center space-x-2"
-            >
+            <Button variant="purple" className="flex items-center space-x-2">
               <PlusIcon className="h-4 w-4" /> {/* Add the plus icon */}
               <span>New link</span>
             </Button>
-            </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Cards Section */}
+        <div className="grid grid-cols-4 gap-3">
 
-
-              <AdLinksTable />
-
-
-            <div className="col-span-1 space-y-4">
-            <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
-              <CardTitle className="text-[14px] font-medium">Visits</CardTitle>
-              <svg width="16" 
-              height="16" 
-              viewBox="0 0 15 15" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.50005 1.04999C7.74858 1.04999 7.95005 1.25146 7.95005 1.49999V8.41359L10.1819 6.18179C10.3576 6.00605 10.6425 6.00605 10.8182 6.18179C10.994 6.35753 10.994 6.64245 10.8182 6.81819L7.81825 9.81819C7.64251 9.99392 7.35759 9.99392 7.18185 9.81819L4.18185 6.81819C4.00611 6.64245 4.00611 6.35753 4.18185 6.18179C4.35759 6.00605 4.64251 6.00605 4.81825 6.18179L7.05005 8.41359V1.49999C7.05005 1.25146 7.25152 1.04999 7.50005 1.04999ZM2.5 10C2.77614 10 3 10.2239 3 10.5V12C3 12.5539 3.44565 13 3.99635 13H11.0012C11.5529 13 12 12.5528 12 12V10.5C12 10.2239 12.2239 10 12.5 10C12.7761 10 13 10.2239 13 10.5V12C13 13.1041 12.1062 14 11.0012 14H3.99635C2.89019 14 2 13.103 2 12V10.5C2 10.2239 2.22386 10 2.5 10Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-                </path>
-                </svg>
-            </CardHeader>
-            <CardContent>
-                  <div className="text-xs pb-2 text-[#9CA3AF]">
-                    Total number of link visits
-                    </div>
-                    <div  className="space-y-1">
-                  <div className="text-2xl font-bold">148,056</div>
-                  <p className="text-xs text-muted-foreground">
-                    last 7 days
-                  </p>
-                  </div>
-                </CardContent>
+        <div className="grid grid-cols-2 gap-3 col-span-2">
+          {/* Card 1: Visits */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-[14px] font-medium">Attributed Sales</CardTitle>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>                </CardHeader>
+              <CardContent>
+                  <div className="text-2xl font-bold">1,357</div>
+                  <p className="text-xs text-muted-foreground">last 7 days</p>
+              </CardContent>
           </Card>
 
-          {/* Card 2: Last updates */}
           <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-[14px] font-medium">Visits</CardTitle>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-click"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></svg>            </CardHeader>
+            <CardContent>
+                <div className="text-2xl font-bold">148,056</div>
+                <p className="text-xs text-muted-foreground">last 7 days</p>
+            </CardContent>
+          </Card>
+
+          </div>
+
+          
+
+          
+          <Card className="col-span-2">
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-[14px] font-medium">Last updates</CardTitle>
             <svg width="15" 
             height="15" 
@@ -99,139 +90,74 @@ export default function Home () {
               </CardHeader>
 
 
-              <CardContent className="space-y-4">
+              <CardContent className="flex w-full">
+                    {/* Left Frame (Amazon) */}
+                    <div className="flex items-center space-x-4 pr-5">
+                      {/* Logo on the left */}
+                      <div className="flex items-center space-x-2">
+                        <img
+                          src="https://i0.wp.com/www.jesuismonpatron.fr/wp-content/uploads/2018/08/amazon-seller-central-fr.png?fit=598152&ssl=1"
+                          alt="Amazon Logo"
+                          className="w-20 object-contain"
+                        />
+                      </div>
 
-              <div className="text-xs pb-2 text-[#9CA3AF]">
-                    Current state of the data
-                  </div>
-
-              {/* Amazon Line */}
-              <div className="flex items-center justify-between border-b border-[#e6e3e3] pb-4">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src="https://i0.wp.com/www.jesuismonpatron.fr/wp-content/uploads/2018/08/amazon-seller-central-fr.png?fit=598152&ssl=1"
-                    alt="Amazon Logo"
-                    className="w-16 object-contain"
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs text-[#7E828A]">Processing data...</span>
-                  <div className="relative flex items-center justify-center">
-                    <div className="h-4 w-4 bg-orange-100  rounded-full flex items-center justify-center">
-                      <div className="h-1.5 w-1.5 bg-orange-400 rounded-full"></div>
+                      {/* Text and Color frame */}
+                      <div className="flex flex-col items-start">
+                        {/* Top row with "TEST" text and color frame */}
+                        <div className="flex items-center space-x-1">
+                          <span className="text-sm font-medium">Processing...</span>
+                          <div className="relative flex items-center justify-center">
+                          </div>
+                        </div>
+                        <span className="text-xs text-[#7E828A]">Received 1h ago</span>
+                      </div>
+                        <div className="h-4 w-4 bg-orange-100 rounded-full flex items-center justify-center">
+                              <div className="h-1.5 w-1.5 bg-orange-400 rounded-full"></div>
+                            </div>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Meta Line */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src="https://adsmith.biz/wp-content/uploads/meta-logo.png"
-                    alt="Meta Logo"
-                    className="w-16 object-contain"
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs text-[#7E828A]">Data sent 3h ago</span>
-                  <div className="relative flex items-center justify-center">
-                    <div className="h-4 w-4 bg-[#e6fce8] rounded-full flex items-center justify-center">
-                      <div className="h-1.5 w-1.5 bg-green-600 rounded-full"></div>
+                    {/* Middle Border */}
+                    <div className="border-l border-gray-300 h-full"></div>
+
+                    {/* Right Frame (Meta) */}
+                    <div className="flex items-center space-x-4 pl-5">
+                      <div className="flex items-center space-x-2">
+                        <img
+                          src="https://adsmith.biz/wp-content/uploads/meta-logo.png"
+                          alt="Meta Logo"
+                          className="w-20 object-contain"
+                        />
+                      </div>
+                      
+
+                      {/* Text and Color frame */}
+                      <div className="flex flex-col items-start">
+                        {/* Top row with "TEST" text and color frame */}
+                        <div className="flex items-center space-x-1">
+                          <span className="text-sm font-medium">Data sent</span>
+                          <div className="relative flex items-center justify-center">
+                          </div>
+                        </div>
+                        {/* Bottom row with "Received 3h ago" */}
+                        <span className="text-xs text-[#7E828A]">Sent 3h ago</span>
+                      </div>
+                        <div className="h-4 w-4 bg-[#e6fce8] rounded-full flex items-center justify-center">
+                            <div className="h-1.5 w-1.5 bg-green-600 rounded-full"></div>
+                          </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-            </CardContent>
-
+                    
+                    </CardContent>
 
           </Card>
 
+        </div>
 
-
-          {/* Card 3: Account Status */}
-          <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
-            <CardTitle className="text-[14px] font-medium">Account status</CardTitle>
-            <svg 
-              width="15" 
-              height="15"
-              viewBox="0 0 15 15" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.49985 0.877045C3.84216 0.877045 0.877014 3.84219 0.877014 7.49988C0.877014 11.1575 3.84216 14.1227 7.49985 14.1227C11.1575 14.1227 14.1227 11.1575 14.1227 7.49988C14.1227 3.84219 11.1575 0.877045 7.49985 0.877045ZM1.82701 7.49988C1.82701 4.36686 4.36683 1.82704 7.49985 1.82704C10.6328 1.82704 13.1727 4.36686 13.1727 7.49988C13.1727 10.6329 10.6328 13.1727 7.49985 13.1727C4.36683 13.1727 1.82701 10.6329 1.82701 7.49988ZM7.49999 9.49999C8.60456 9.49999 9.49999 8.60456 9.49999 7.49999C9.49999 6.39542 8.60456 5.49999 7.49999 5.49999C6.39542 5.49999 5.49999 6.39542 5.49999 7.49999C5.49999 8.60456 6.39542 9.49999 7.49999 9.49999Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-              </path>
-              </svg>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-              <div className="text-xs pb-2 text-[#9CA3AF]">
-                Check your accounts connection status
-              </div>
-
-              {/* Amazon Line */}
-              <div className="flex items-center justify-between border-b border-[#e6e3e3] pb-4">
-                <span className="text-sm font-medium">Amazon Seller Central</span>
-                <div className="flex items-center space-x-2 bg-[#e6fce8] text-green-700 px-2 py-1 rounded-full">
-                  <span className="text-[12px] font-medium">Active</span>
-                  <div className="relative flex items-center justify-center">
-                      <div className="h-2 w-2 bg-green-700 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-
-
-              {/* Meta Line */}
-              <div className="flex items-center justify-between border-b border-[#e6e3e3] pb-4">
-                <span className="text-sm font-medium">Meta Business Manager</span>
-                <div className="flex items-center space-x-2 bg-red-100 text-red-600 px-2 py-1 rounded-full">
-                  <span className="text-[12px] font-medium">Inactive</span>
-                  <div className="relative flex items-center justify-center">
-                      <div className="h-2 w-2 bg-red-600 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-
-              {/* CNAME Line */}
-              <div className="flex items-center justify-between border-b border-[#e6e3e3] pb-4">
-                <span className="text-sm font-medium">CNAME registry</span>
-                <div className="flex items-center space-x-2 bg-[#e6fce8] text-green-700 px-2 py-1 rounded-full">
-                  <span className="text-[12px] font-medium">Active</span>
-                  <div className="relative flex items-center justify-center">
-                      <div className="h-2 w-2 bg-green-700 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-
-              <Button variant="outline">
-                  All accounts
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ marginLeft: '6px' }}
-                  >
-                    <path
-                      d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </Button>
-
-
-            </CardContent>
-
-
-          </Card>
-
-            </div>
-          </div>
-          </div>
+        {/* Full-width AdLinksTable */}
+        <div className="flex-1 h-max">
+          <AdLinksTable />
+        </div>
+      </div>
     </ScrollArea>
   );
 }

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import * as React from "react";
+import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -12,39 +12,70 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 
-const frameworks = [
+// Example marketplaces with flag images
+const marketplaces = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "us",
+    label: "United States",
+    flag: "https://flagcdn.com/us.svg", // Flag for United States
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "mx",
+    label: "Mexico",
+    flag: "https://flagcdn.com/mx.svg", // Flag for Mexico
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "uk",
+    label: "United Kingdom",
+    flag: "https://flagcdn.com/gb.svg", // Flag for United Kingdom
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: "ca",
+    label: "Canada",
+    flag: "https://flagcdn.com/ca.svg", // Flag for Canada
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: "de",
+    label: "Germany",
+    flag: "https://flagcdn.com/de.svg", // Flag for Germany
   },
-]
+];
 
-export function ComboboxDemo() {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+export function ComboboxDemo({ defaultMarketplace = "mx" }) {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState(
+    localStorage.getItem("defaultMarketplace") || defaultMarketplace
+  );
+  const [popoverOpen, setPopoverOpen] = React.useState<string | null>(null); // Store the open state for each marketplace's 3-dot menu
+
+  // Save marketplace selection to localStorage
+  React.useEffect(() => {
+    if (value) {
+      localStorage.setItem("defaultMarketplace", value);
+    }
+  }, [value]);
+
+  const handleSetDefault = (marketplace: string) => {
+    setValue(marketplace);
+    setPopoverOpen(null); // Close the 3-dot menu
+  };
+
+  const handleRemoveDefault = () => {
+    setValue("");
+    setPopoverOpen(null); // Close the 3-dot menu
+  };
+
+  // Get the selected marketplace details
+  const selectedMarketplace = marketplaces.find(
+    (marketplace) => marketplace.value === value
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -53,42 +84,95 @@ export function ComboboxDemo() {
           variant="white"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-fit justify-between"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select Marketplace..."}
+          {/* Show the flag and label for the selected marketplace in the combobox */}
+          {selectedMarketplace ? (
+            <div className="flex items-center">
+              <img
+                src={selectedMarketplace.flag}
+                alt={`${selectedMarketplace.label} flag`}
+                className="mr-2 w-6 object-contain rounded-sm"
+              />
+              <span>{selectedMarketplace.label}</span>
+            </div>
+          ) : (
+            "Select Marketplace"
+          )}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-fit p-0" align="end">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search marketplace..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No marketplace found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
-                >
-                  {framework.label}
-                  <CheckIcon
-                    className={cn(
-                      "ml-auto h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+              {marketplaces.map((marketplace) => (
+                <div className="flex items-center" key={marketplace.value}>
+                  <CommandItem
+                    value={marketplace.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpen(false);
+                    }}
+                    className="flex-1"
+                  >
+                    {/* Add the flag image at the left */}
+                    <img
+                      src={marketplace.flag}
+                      alt={`${marketplace.label} flag`}
+                      className="mr-2 w-6 object-contain rounded-sm"
+                    />
+                    
+                    {/* Marketplace label */}
+                    <span>{marketplace.label}</span>
+
+                    {/* Show "(default)" in italics if it's the default */}
+                    {value === marketplace.value && (
+                      <span className="ml-2 italic text-gray-600">
+                        (default)
+                      </span>
                     )}
-                  />
-                </CommandItem>
+                  </CommandItem>
+
+                  {/* 3 dots icon for more options */}
+                  <Popover open={popoverOpen === marketplace.value} onOpenChange={(isOpen) => setPopoverOpen(isOpen ? marketplace.value : null)}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="marketplace3Dots"
+                        className="p-2"
+                        aria-label="Options"
+                      >
+                        <DotsHorizontalIcon className="h-4 w-4 text-[#7E828A] hover:text-black" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-fit p-0">
+                      {value === marketplace.value ? (
+                        <Button
+                          variant="ghost"
+                          className="w-full text-left"
+                          onClick={handleRemoveDefault}
+                        >
+                          Remove from default
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="white"
+                          className="w-full text-left"
+                          onClick={() => handleSetDefault(marketplace.value)}
+                        >
+                          Set as default
+                        </Button>
+                      )}
+                    </PopoverContent>
+                  </Popover>
+                </div>
               ))}
             </CommandGroup>
           </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

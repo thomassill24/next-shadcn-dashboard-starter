@@ -14,13 +14,15 @@ const buttonVariants = cva(
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:
-          'border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground',
+          'border rounded-lg border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground',
         secondary:
           'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         white: 'bg-white text-[#121212] border rounded-lg hover:bg-[#F9FAFB]',
-        purple: 'bg-[#9747FF] text-white rounded-lg hover:bg-[#AE72FF]'
+        purple: 'bg-[#9747FF] text-white rounded-lg hover:bg-[#AE72FF]',
+        calendarPreset: 'rounded-none bg-white hover:bg-[#F9FAFB] justify-start font-regular',
+        marketplace3Dots: 'bg-transparent hover:bg-transparent'
       },
       size: {
         default: 'h-9 px-4 py-2',
