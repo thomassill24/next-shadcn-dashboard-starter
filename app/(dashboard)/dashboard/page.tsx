@@ -1,3 +1,5 @@
+'use client';
+
 import { AreaGraph } from '@/components/charts/area-graph';
 import { BarGraph } from '@/components/charts/bar-graph';
 import { PieGraph } from '@/components/charts/pie-graph';
@@ -13,8 +15,26 @@ import {
 } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useAuth, SignOutButton } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function page() {
+  const { isSignedIn } = useAuth(); // Clerk hook to check if the user is signed in
+  const router = useRouter(); // Next.js router for redirecting
+
+  // Effect to redirect the user if not signed in
+  useEffect(() => {
+    if (!isSignedIn) {
+      router.push('/sign-in'); // Redirect to the sign-in page if the user is not signed in
+    }
+  }, [isSignedIn, router]);
+
+  if (!isSignedIn) {
+    return <p>Redirecting to sign in...</p>; // Temporary message until redirect happens
+  }
+
+  // Render the dashboard page if the user is signed in
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">

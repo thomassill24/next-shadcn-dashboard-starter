@@ -21,8 +21,10 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         white: 'bg-white text-[#121212] border rounded-lg hover:bg-[#F9FAFB]',
         purple: 'bg-[#9747FF] text-white rounded-lg hover:bg-[#AE72FF]',
+        black: 'bg-[000001] text-white rounded-lg hover:bg-[#121212]',
         calendarPreset: 'rounded-none bg-white hover:bg-[#F9FAFB] justify-start font-regular',
-        marketplace3Dots: 'bg-transparent hover:bg-transparent'
+        marketplace3Dots: 'bg-transparent hover:bg-transparent',
+        signUp: 'rounded-lg bg-[#9747FF] text-white hover:bg-[#AE72FF]',
       },
       size: {
         default: 'h-9 px-4 py-2',

@@ -102,7 +102,7 @@ export function CalendarDateRangePicker({
             id="date"
             variant={'white'}
             className={cn(
-              'w-fit justify-start text-left font-medium rounded-lg bg-popover text-popover-foreground',
+              'w-fit justify-start text-left font-medium rounded-lg bg-white text-[#121212]',
               !date && 'text-muted-foreground'
             )}
           >
@@ -146,7 +146,7 @@ export function CalendarDateRangePicker({
               {/* Validate Button */}
               <div className="flex justify-end">
                 <Button
-                  variant="default"
+                  variant="purple"
                   onClick={handleValidate}
                   disabled={!date?.from || !date?.to} // Disable if the range is incomplete
                 >

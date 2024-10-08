@@ -1,4 +1,10 @@
-'use client';
+'use client'; // Add this at the top of your file
+
+import { useRouter } from 'next/navigation'; // Use `next/navigation` for Next.js 13+ App Router
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -6,49 +12,83 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import GoogleSignInButton from '../github-auth-button';
+import { useSignUp } from '@clerk/nextjs'; // Clerk sign-up hook for creating users
+import Link from 'next/link';
 
+// Validation schema using Zod for email and password
 const formSchema = z.object({
-  email: z.string().email({ message: 'Enter a valid email address' })
+  email: z.string().email({ message: 'Enter a valid email address' }),
+  password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl');
+  const { signUp, isLoaded } = useSignUp(); // Clerk hook to handle sign-up
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter(); // Use router for redirection
+
   const defaultValues = {
-    email: 'demo@gmail.com'
+    email: '',
+    password: '',
   };
+
+  // React Hook Form setup for handling form state and validation
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
-    defaultValues
+    defaultValues,
   });
 
+  // Form submit handler
   const onSubmit = async (data: UserFormValue) => {
-    signIn('credentials', {
-      email: data.email,
-      callbackUrl: callbackUrl ?? '/dashboard'
-    });
+    setLoading(true);
+    setError(null); // Clear any previous errors
+
+    if (!isLoaded) {
+      setError('Clerk is not loaded. Please wait.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Create a new sign-up attempt with Clerk
+      const signUpAttempt = await signUp.create({
+        emailAddress: data.email, // Pass the email from the form
+        password: data.password,  // Pass the password from the form
+      });
+
+      // Prepare for email verification after sign-up
+      await signUpAttempt.prepareEmailAddressVerification();
+      console.log('Sign-up successful, verification email sent!');
+
+      // Redirect to the email verification page
+      router.push('/verify-email'); // Redirect to the email verification page
+    } catch (err: any) {
+      // Check if the error is due to an existing account
+      if (err.errors?.[0]?.code === 'identifier_already_exists') {
+        setError('You already have an account. Please log in instead.');
+        router.push('/sign-in'); // Redirect to sign-in if the account already exists
+      } else {
+        // Handle any other errors returned by Clerk
+        setError(err.errors?.[0]?.message || 'An error occurred during sign-up.');
+      }
+    } finally {
+      setLoading(false); // Reset loading state
+    }
   };
 
   return (
     <>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-2"
+          onSubmit={form.handleSubmit(onSubmit)} // Hooking up the form submit handler
+          className="w-full space-y-6"
         >
+          {/* Email Input Field */}
           <FormField
             control={form.control}
             name="email"
@@ -58,7 +98,7 @@ export default function UserAuthForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Enter your email..."
+                    placeholder="your-email@example.com"
                     disabled={loading}
                     {...field}
                   />
@@ -68,22 +108,48 @@ export default function UserAuthForm() {
             )}
           />
 
-          <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Continue With Email
+          {/* Password Input Field */}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="********"
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Error Message Display */}
+          {error && (
+            <p className="text-red-500 text-sm">
+              {error === 'You already have an account. Please log in instead.' ? (
+                <>
+                  {error}{' '}
+                  <Link href="/sign-in" className="text-blue-500 underline">
+                    Log In
+                  </Link>
+                </>
+              ) : (
+                error
+              )}
+            </p>
+          )}
+
+          {/* Sign Up Button */}
+          <Button disabled={loading} className="ml-auto w-full" type="submit" variant="signUp">
+            {loading ? 'Signing Up...' : 'Sign Up'}
           </Button>
         </form>
       </Form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <GoogleSignInButton />
     </>
   );
 }

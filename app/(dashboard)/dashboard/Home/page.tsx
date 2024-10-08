@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useAuth, SignOutButton } from '@clerk/nextjs';
 import { useEffect, useState } from "react";
 import React from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -8,21 +10,28 @@ import { columns } from '@/components/tables/campaigns-table/columns';
 import { DataTable } from "@/components/ui/data-table";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Popover } from "@/components/ui/popover";
-import { Command } from "@/components/ui/command";
 import { ComboboxDemo } from "@/components/ui/combobox";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AdSetsTable } from '@/components/tables/adsets-table/adsets-table';
-import { columnsAdSets } from '@/components/tables/adsets-table/columns';
-import { AdsTable } from '@/components/tables/ads-table/ads-table';
-import { columnsAds } from '@/components/tables/ads-table/columns';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AdLinksTable from '@/components/ui/ad-links';
 import { DateRange } from "react-day-picker";
 import { CalendarDateRangePicker } from "@/components/date-range-picker";
 
-export default function Home() {
+export default function home() {
+  const { isSignedIn } = useAuth(); // Clerk hook to check if the user is signed in
+  const router = useRouter(); // Next.js router for redirecting
+
+  // Effect to redirect the user if not signed in
+  useEffect(() => {
+    if (!isSignedIn) {
+      router.push('/sign-in'); // Redirect to the sign-in page if the user is not signed in
+    }
+  }, [isSignedIn, router]);
+
+  if (!isSignedIn) {
+    return <p>Redirecting to sign in...</p>; // Temporary message until redirect happens
+  }
+
   return (
     <ScrollArea className="h-full bg-[#f9fafb]">
       <div className="flex-1 space-y-5 md:p-8">
@@ -57,7 +66,7 @@ export default function Home() {
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>                </CardHeader>
               <CardContent>
                   <div className="text-2xl font-bold">1,357</div>
-                  <p className="text-xs text-muted-foreground">last 7 days</p>
+                  <p className="text-xs text-[#7E828A]">last 7 days</p>
               </CardContent>
           </Card>
 
@@ -67,15 +76,12 @@ export default function Home() {
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-click"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></svg>            </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold">148,056</div>
-                <p className="text-xs text-muted-foreground">last 7 days</p>
+                <p className="text-xs text-[#7E828A]">last 7 days</p>
             </CardContent>
           </Card>
 
           </div>
 
-          
-
-          
           <Card className="col-span-2">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-[14px] font-medium">Last updates</CardTitle>

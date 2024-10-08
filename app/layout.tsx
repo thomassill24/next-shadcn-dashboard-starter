@@ -5,29 +5,28 @@ import type { Metadata } from 'next';
 import NextTopLoader from 'nextjs-toploader';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { auth } from '@/auth';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'Pixamp',
+  description: 'Je fais tout ce que je peux pour apprendre à coder et te dev des trucs quali mon Allen :)'
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} overflow-hidden`}>
-        <NextTopLoader showSpinner={false} />
-        <Providers session={session}>
-          <Toaster />
-          {children}
-        </Providers>
+    <html lang="en">
+      <body className={inter.className}>
+        <ClerkProvider>
+            {children}
+            <Toaster />
+            <NextTopLoader />
+        </ClerkProvider>
       </body>
     </html>
   );

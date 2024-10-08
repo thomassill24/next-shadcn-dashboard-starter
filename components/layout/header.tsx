@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSidebar } from '@/hooks/useSidebar';
+import { SignOutButton } from '@clerk/clerk-react';
 
 type SidebarProps = {
   className?: string;
@@ -53,8 +54,7 @@ export default function Sidebar({ className }: SidebarProps) {
         {/* Right Side - Links and Icons */}
         <div className='w-full py-2 pr-6 flex flex-row space-x-4 justify-end items-center bg-white'>
               
-          {/* User Nav/Profile */}
-          <UserNav />
+        <SignOutButton className='px-3 py-1 text-sm font-medium w-fit bg-red-500 text-white hover:bg-red-600 rounded-lg'>Sign out</SignOutButton>
 
         </div>
         </div>
